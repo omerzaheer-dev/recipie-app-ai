@@ -17,11 +17,11 @@ const options = {
     },
     servers: [
       {
-        url: process.env.SWAGGER_URL || "http://localhost:5000",
+        url: process.env.SWAGGER_URL || "http://localhost:3000",
         description: "Production Server",
       },
       {
-        url: "http://localhost:5000",
+        url: "http://localhost:3000",
         description: "Local Development Server",
       },
     ],
