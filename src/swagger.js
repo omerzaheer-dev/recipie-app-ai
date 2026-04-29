@@ -7,8 +7,12 @@ const swaggerDocument = {
     },
     servers: [
         {
-            url: "https://untradeable-molly-metatrophic.ngrok-free.dev",
+            url: "https://recipie-app-mauve.vercel.app",
             description: "Main base URL",
+        },
+        {
+            url: "https://untradeable-molly-metatrophic.ngrok-free.dev",
+            description: "URL",
         },
     ],
     paths: {
