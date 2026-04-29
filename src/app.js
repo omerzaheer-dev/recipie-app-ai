@@ -38,18 +38,25 @@ app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
 
-// ✅ Routes
-import { userRoutes, mainRoutes } from "./routes/index.js";
-app.use("/api/users", userRoutes);
+// ✅ Swagger Documentation
 app.use(
-  "/api/main/docs",
-  swaggerUi.serveFiles(swaggerDocument),
-  swaggerUi.setup(swaggerDocument)
+  "/api/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: "/api/docs.json",
+    },
+  })
 );
-app.get("/api/main/docs.json", (req, res) => {
+
+app.get("/api/docs.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(swaggerDocument);
 });
+
+// ✅ Routes
+import { userRoutes, mainRoutes } from "./routes/index.js";
+app.use("/api/users", userRoutes);
 app.use("/api/main", mainRoutes);
 
 // ✅ Global error handlers

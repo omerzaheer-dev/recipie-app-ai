@@ -7,10 +7,11 @@ const router = express.Router();
  * @swagger
  * /api/main:
  *   post:
- *     summary: Run main endpoint
- *     description: Accepts a social media URL and returns extracted recipe data.
+ *     summary: Extract recipe from a URL
+ *     description: Accepts a social media or web URL and returns parsed recipe data.
  *     tags:
  *       - Main
+ *     operationId: extractRecipe
  *     requestBody:
  *       required: true
  *       content:
@@ -29,13 +30,40 @@ const router = express.Router();
  *             url: https://youtu.be/RaLzxZryEoA?si=uU0mXBgki2MjvtgS
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: Recipe extracted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 200
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     source:
+ *                       type: string
+ *                       example: youtube
+ *                     image:
+ *                       type: string
+ *                       nullable: true
+ *                       example: https://i.ytimg.com/vi/abc123/maxresdefault.jpg
+ *                     recipe:
+ *                       type: object
+ *                       description: Parsed recipe object returned by AI service.
+ *                 message:
+ *                   type: string
+ *                   example: Main info fetched
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *       400:
- *         description: Bad request
+ *         description: Missing url in request body
  *       422:
- *         description: Description was found empty, so recipe extraction could not run
+ *         description: No description available to extract recipe
  *       500:
- *         description: Server error
+ *         description: Internal server error
  */
 router.post(
   "/",
