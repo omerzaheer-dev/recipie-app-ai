@@ -41,14 +41,16 @@ app.get("/", (req, res) => {
 // ✅ Routes
 import { userRoutes, mainRoutes } from "./routes/index.js";
 app.use("/api/users", userRoutes);
-app.use("/api/main", mainRoutes);
-app.use("/api/main/docs", swaggerUi.serveFiles(swaggerDocument));
-app.get("/api/main/docs", swaggerUi.setup(swaggerDocument));
-app.get("/api/main/docs/", swaggerUi.setup(swaggerDocument));
+app.use(
+  "/api/main/docs",
+  swaggerUi.serveFiles(swaggerDocument),
+  swaggerUi.setup(swaggerDocument)
+);
 app.get("/api/main/docs.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(swaggerDocument);
 });
+app.use("/api/main", mainRoutes);
 
 // ✅ Global error handlers
 process.on("unhandledRejection", (reason, promise) => {
